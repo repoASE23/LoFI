@@ -3,7 +3,7 @@
 This is the anonymous repository for the ASE 2023 submission **#225 "LoFI: Extracting Fault-indicating Information from Logs via Prompt-based Tuning"**. 
 In this paper, we propose an automated approach to extract fault-indicating information from logs.
 
-![Extracting Log Fault-indicting Information](./docs/diagnosis.png)
+![Extracting Log Fault-indicting Information](./docs/diagnosis.pdf)
 
 ## Repository Structure
 ```
