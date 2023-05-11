@@ -16,25 +16,22 @@ def common_args():
     parser.add_argument("--output_dir", default=None, type=str, help="The output directory where the model predictions and checkpoints will be written.")
 
     # # log summary overall args
-    # # Step2: Log Summarization
-    parser.add_argument('--do_key_extraction', default=True, action='store_true', help="extract key information from the log window")
-    # # Step2.1: Log Summarizing
-    parser.add_argument("--overwrite_split_dir", action='store_true', default=True, help="Whether to overwrite split of the dataset.")
-
-    # # Step2.1.1: summarization args: log selection
-    parser.add_argument("--log_selection", action='store_true', default=True, help="Whether to select log to feed to qa model.")
+    # # Step2: Log extraction
+    # # Step2.1: extraction args: log selection
+    parser.add_argument("--log_selection", action='store_true', default=False, help="Whether to select log to feed to qa model.")
     parser.add_argument("--selection_method", default='HighSimilar-roberta', type=str, help=".", choices=['Error', 'Highest', 'Time', 'HighGroup', 'random',
                                                                                                           'HighSimilar-bert', 'HighSimilar-roberta', 'HighSimilar-codebert', 'HighSimilar-unixcoder', 'HighSimilar-labse',
                                                                                                           'HighGroupSimilar-bert', 'HighGroupSimilar-roberta', 'HighGroupSimilar-codebert', 'HighGroupSimilar-unixcoder', 'HighGroupSimilar-labse',])
-    # # Step2.1.1: summarization args: prepare squad data
+    # # Step2.2: extraction args: prepare squad data
     # parser.add_argument("--qa_train_with_log_selection", type=str, default="", help="Train qa model with log_selection", choices=['Train', 'N'])
     # parser.add_argument("--qa_test_with_log_selection", type=str, default="", help="Test qa model with log_selection", choices=['Test', 'N'])
     parser.add_argument("--qa_add_desc", action='store_true', default=True, help="Whether add qa pairs of description to qa model.")
     parser.add_argument("--qa_add_param", action='store_true', default=True, help="Whether add qa pairs of parameters to qa model.")
     parser.add_argument("--overwrite_squad_dir", action='store_true', default=True, help="Whether to overwrite split of the dataset.")
 
-    # # Step2.1.1: summarization args
-    parser.add_argument("--summarization_method", type=str, default="fewshot_qa", help="summarization method", choices=["fewshot_qa", "no"])
+    # # Step2.3: extraction args
+    parser.add_argument("--extraction_method", type=str, default="fewshot_qa", help="extraction method", choices=["fewshot_qa", "no"])
+    parser.add_argument("--do_extraction", action='store_true', default=False, help="Whether to select log to feed to qa model.")
 
     return parser
 
@@ -100,7 +97,7 @@ def add_model_args(parser):
                         help="Epsilon for Adam optimizer.")
     # parser.add_argument("--max_grad_norm", default=1.0, type=float,
     #                     help="Max gradient norm.")
-    parser.add_argument("--num_train_epochs", default=2, type=int,
+    parser.add_argument("--num_train_epochs", default=100, type=int,
                         help="Total number of training epochs to perform.")
     parser.add_argument("--max_steps", default=-1, type=int,
                         help="If > 0: set total number of training steps to perform. Override num_train_epochs.")
@@ -121,11 +118,6 @@ def add_model_args(parser):
     parser.add_argument('--seed', type=int, default=42,
                         help="random seed for initialization")
 
-    return parser
-
-
-def add_qa_args(parser):
-
     parser.add_argument("--n_best_size", default=20, type=int, help="The total number of n-best predictions to generate when looking for an answer.")
     parser.add_argument("--max_answer_length", default=50, type=int, help="The maximum length of an answer that can be generated. This is needed because the start and end predictions are not conditioned on one another.")
     parser.add_argument("--version_2_with_negative", action='store_true', default=True, help="If true, some of the examples do not have an answer.")
@@ -143,28 +135,22 @@ def load_args():
     parser = common_args()
     parser = add_log_parser_args(parser)
     parser = add_model_args(parser)
-
-    parser = add_qa_args(parser)
     args = parser.parse_args()
 
-    # For step 2: summarization with fewshot_qa
-    print(f"[config][Offline] Do KeyExtraction {args.do_key_extraction}, with {args.summarization_method}")
-    if args.do_key_extraction:
+    print(f"[config][Offline] Do Extraction")
+    if args.do_extraction:
         args.train_filename = os.path.join(args.training_data_dir, 'train.json' if not args.train_filename else args.train_filename)
         args.dev_filename = os.path.join(args.training_data_dir, 'dev.json' if not args.dev_filename else args.dev_filename)
         args.test_filename = os.path.join(args.training_data_dir, 'test.json' if not args.test_filename else args.test_filename)
-        print(f"[config][KeyExtraction] train/test files saved at {args.training_data_dir}")
-        print(f"[config][KeyExtraction] summarizing using {args.summarization_method}")
+        print(f"[config][Extraction] train/test files saved at {args.training_data_dir}")
 
-        if args.summarization_method == 'fewshot_qa':
-            args.prefix += f"qa_model/{args.model_name}-id{args.run_id}-Second{args.log_second_window}Step{args.log_step_size}"
+        args.prefix += f"qa_model/{args.model_name}-id{args.run_id}-Second{args.log_second_window}Step{args.log_step_size}"
         if args.log_selection:
             args.prefix += f"-LS{args.selection_method}"
-
         args.output_dir = os.path.join(args.save_result_dir, args.prefix) if args.output_dir is None else args.output_dir
         if not os.path.exists(args.output_dir):
             os.makedirs(args.output_dir)
-        print(f"[config][KeyExtraction] Model saved to {args.output_dir}")
+        print(f"[config][Extraction] Model saved to {args.output_dir}")
         with open(os.path.join(args.output_dir, 'args.yaml'), 'w') as f:
             yaml.dump(vars(args), f)
 
