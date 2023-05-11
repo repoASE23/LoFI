@@ -70,11 +70,6 @@ def select_logs_for_all(args, selection_method):
         print(f"{[[i, new_data_idx[i]] for i, flag in enumerate(summary_in_logs_error) if not flag]}")
         print()
 
-    """
-        python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-roberta --summarization_method no --log_window_length 1 --qa_ask_with_desc WithDesc
-
-    """
-
     return args
 
 
@@ -126,41 +121,3 @@ def select_logs(logs, levels=None, times=None, method='Highest'):
     return new_logs_idx
 
 
-"""
-V3
-############ 使用Highest + Similar + Group前一个 LogWindow 1 
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-roberta --summarization_method no --log_window_length 1 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-labse --summarization_method no --log_window_length 1 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-codebert --summarization_method no --log_window_length 1 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-unixcoder --summarization_method no --log_window_length 1 --qa_ask_with_desc WithDesc
-
-############ 使用Highest + Similar + Group前一个 LogWindow 3 
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-roberta --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-labse --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-codebert --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-unixcoder --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-
-############ 使用Highest + Similar LogWindow 3 （CodeBERT>Unixcoder>Roberta）
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-roberta --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-labse --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-codebert --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-unixcoder --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-
-############ 使用Highest + Similar + Group前一个 LogWindow 5 (CodeBERT最好)
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-roberta --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-labse --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-codebert --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-unixcoder --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-
-############ 使用Highest + Similar LogWindow 5 ###（Unixcoder>CodeBERT>Roberta）
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-roberta --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-labse --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-codebert --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-    python pipeline.py --offline --log_selection --selection_method HighSimilar-unixcoder --summarization_method no --log_window_length 5 --qa_ask_with_desc WithDesc --do_key_extraction
-
-############ 使用Highest + Group前一个
-    python pipeline.py --offline --log_selection --selection_method HighGroup --summarization_method no --log_window_length 1 --do_key_extraction --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroup --summarization_method no --log_window_length 3 --do_key_extraction --qa_ask_with_desc WithDesc
-    python pipeline.py --offline --log_selection --selection_method HighGroup --summarization_method no --log_window_length 5 --do_key_extraction --qa_ask_with_desc WithDesc
-
-"""

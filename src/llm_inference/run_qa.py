@@ -12,7 +12,7 @@ from dataclasses import dataclass, field
 from typing import Optional
 
 # import datasets
-import evaluate
+# import evaluate
 from datasets import load_dataset
 
 import transformers

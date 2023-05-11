@@ -17,16 +17,9 @@ def main():
         print("[LSSS] Start log selection, method:", args.selection_method)
         args = select_logs_for_all(args, args.selection_method)
         print("[LSSS]", os.path.basename(args.train_filename), os.path.basename(args.dev_filename), os.path.basename(args.test_filename))
-        # CUDA_VISIBLE_DEVICES=3 python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-roberta --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-        # CUDA_VISIBLE_DEVICES=3 python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-codebert --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-        # CUDA_VISIBLE_DEVICES=3 python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-labse --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-        # CUDA_VISIBLE_DEVICES=3 python pipeline.py --offline --log_selection --selection_method HighGroupSimilar-unixcoder --summarization_method no --log_window_length 3 --qa_ask_with_desc WithDesc
-        # python pipeline.py --offline --do_key_extraction --log_selection --selection_method Highest --summarization_method no --ad_method answer_second --log_second_window 11 --qa_ask_with_desc WithDesc
-        # python pipeline.py --offline --do_key_extraction --log_selection --selection_method HighGroup --summarization_method no --ad_method answer_second --log_second_window 11 --qa_ask_with_desc WithDesc
-        # python pipeline.py --offline --do_key_extraction --log_selection --selection_method Error --summarization_method no --ad_method answer_second --log_second_window 11 --qa_ask_with_desc WithDesc
 
-    # # Step2: extract key information from the Log Window with Fewshot Learning
-    if args.summarization_method == 'fewshot_qa':
+    # # Step2: extract fault-indicating information from the selected logs
+    if args.do_extraction:
         args = prepare_squad_qa_data(args)
         results = train_eval_qa_model(args)
 

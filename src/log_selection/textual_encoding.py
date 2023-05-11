@@ -23,19 +23,13 @@ def text_encoding(text_list, model_type):
             vectors = [model.wv[token] for token in tokens if token in model.wv.vocab]
             if vectors:
                 X[i] = np.mean(vectors, axis=0)
-    elif model_type in ['bert', 'roberta', 'codebert', 'unixcoder', 'labse']:
+    elif model_type in ['bert', 'roberta', 'codebert']:
         if model_type == 'bert' or model_type == 'roberta':
             model_name = {'net': 'roberta-base',
                           'local': './pretrained_models/roberta-base', }
         elif model_type == 'codebert':
             model_name = {'net': 'microsoft/codebert-base',
                           'local': './pretrained_models/codebert', }
-        elif model_type == 'unixcoder':
-            model_name = {'net': 'microsoft/unixcoder-base',
-                          'local': './pretrained_models/unixcoder', }
-        elif model_type == 'labse':
-            model_name = {'net': 'sentence-transformers/LaBSE',
-                          'local': './pretrained_models/labse', }
         try:
             word_embedding_model = models.Transformer(model_name['net'])
         except:
