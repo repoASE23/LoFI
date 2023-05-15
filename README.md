@@ -67,6 +67,9 @@ python pipeline.py --do_extraction --num_train_epochs 100
 ```
 
 
-
+### Dataset
+The dataset is available at `./data/datasetB`.
+In this temporary repository, we first only provide a sample dataset for demonstration purpose. 
+The rest of the dataset are under policy review and will be updated soon.
 
 
