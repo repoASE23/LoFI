@@ -7478,7 +7478,6 @@
    "out queryCIRelationInstances, relationName=className",
    "to delete Relations,relationName=className,deleteRelations=[]",
    "---Finish to queryToDeleteRelationInMysql, mainTaskId is 8000 relationName is className---",
-   NaN,
    "---Delete data stage--- KeyMessage:to delete data by Id,totalNumMap={\"NOVA\":0}---",
    "getSubTaskState, mainTask id=8000, className=NOVA,SubTaskState=SubTaskState [subTaskId=4468aeb5-eae3-4edb-a3db-4f2c268efbe8, classType=NOVA, lastFailedTypes=[\"ap_add_or_update\"], mainTaskId=8000, reportType=sync, nativeId=https://127.0.0.1:8888/4b1fd21cfe3d4d879d88c17fe1547ea8, ownerId=ownerId, systemType=compute, projectId=null, refreshNativeId=nativeId, needReportData=false, isFirstCollect=true, systemDelete=false, keystoneId=null, isRedisEmpty=false]",
    "Notify deleteResult to tenantresdataservice,reportType:sync,reportClass:NOVA",
@@ -7531,7 +7530,6 @@
    "out queryCIRelationInstances, relationName=className",
    "to delete Relations,relationName=className,deleteRelations=[]",
    "<*> to queryToDeleteRelationInMysql, mainTaskId is <*> relationName is className---",
-   NaN,
    "---Delete data stage--- KeyMessage:to delete data by <*>",
    "getSubTaskState, mainTask id=<*>, className=NOVA,SubTaskState=SubTaskState [subTaskId=<*>, classType=NOVA, lastFailedTypes=[<*>], mainTaskId=<*>, reportType=sync, nativeId=https:<*> ownerId=<*>, systemType=compute, projectId=null, refreshNativeId=<*>, needReportData=false, isFirstCollect=true, systemDelete=false, keystoneId=null, isRedisEmpty=false]",
    "Notify deleteResult to <*>",
@@ -7664,7 +7662,6 @@
     "---Finish",
     "8000"
    ],
-   [],
    [
     "Id,totalNumMap={\"NOVA\":0}---"
    ],
@@ -7761,7 +7758,6 @@
    "INFO",
    "ERROR",
    "WARN",
-   "WARN",
    "INFO",
    "WARN",
    "INFO",
@@ -7787,7 +7783,6 @@
    "INFO"
   ],
   "time": [
-   "2023-02-16 17:00:35",
    "2023-02-16 17:00:35",
    "2023-02-16 17:00:35",
    "2023-02-16 17:00:35",
